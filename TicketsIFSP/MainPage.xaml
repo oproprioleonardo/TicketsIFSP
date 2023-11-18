@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TicketsIFSP.MainPage"
+             >
+
+    <ScrollView VerticalOptions="FillAndExpand" BackgroundColor="{DynamicResource Background}">
+        <FlexLayout JustifyContent="SpaceBetween" Direction="Column" VerticalOptions="FillAndExpand">
+
+            <Border 
+                VerticalOptions="FillAndExpand"
+                Margin="-2"
+                StrokeThickness="0"
+                Padding="16,8"
+                StrokeShape="RoundRectangle 0,0,20,20"
+                Background="{DynamicResource Primary}">
+                <Border.Shadow>
+                    <Shadow
+                    Brush="{DynamicResource Black}"
+                    Offset="10,10"
+                    Radius="40"
+                    Opacity="0.9"/>
+                </Border.Shadow>
+
+
+                <FlexLayout
+                    Direction="Row"
+                    AlignItems="Center"
+                    HeightRequest="120">
+
+
+                    <Frame WidthRequest="70" HeightRequest="70" BorderColor="{DynamicResource Black}" CornerRadius="35" Margin="10,0,0,0">
+                        <Image Source="dotnet_bot.svg" Aspect="AspectFill" />
+                    </Frame>
+
+                    <StackLayout Orientation="Vertical" Margin="5,0,0,0">
+                        <Label Text="Bem-vindo," FontSize="Large" TextColor="{DynamicResource White}"/>
+                        <Label Text="Administrador" FontSize="Small" TextColor="{DynamicResource White}"/>
+                    </StackLayout>
+
+                </FlexLayout>
+            </Border>
+
+            <VerticalStackLayout FlexLayout.Grow="1" FlexLayout.Basis="0">
+                <VerticalStackLayout Margin="25,15" Spacing="15" VerticalOptions="FillAndExpand">
+
+                    <Label TextColor="{DynamicResource White}" Text="Opções" FontSize="Large"></Label>
+
+                    <Grid ColumnSpacing="10" RowSpacing="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+
+                        <Border
+                            ClassId="events"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 20,20,20,20"
+                            BackgroundColor="{DynamicResource Elements}"
+                            Grid.Column="0"
+                            Padding="10,10">
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="FlexLayoutTapped" />
+                            </Border.GestureRecognizers>
+
+                            <FlexLayout
+                                Direction="Column"
+                                AlignItems="Center"
+                                HeightRequest="110"
+                                WidthRequest="110"
+                                JustifyContent="SpaceAround">
+
+                                <Image Source="calendario.svg" HeightRequest="70" WidthRequest="70" />
+
+                                <Label TextColor="{DynamicResource White}" Text="Eventos"/>
+
+                            </FlexLayout>
+
+
+                        </Border>
+
+                        <Border
+                            ClassId="ban"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 20,20,20,20"
+                            BackgroundColor="{DynamicResource Elements}"
+                            Grid.Column="1"
+                            Padding="10,10">
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="FlexLayoutTapped" />
+                            </Border.GestureRecognizers>
+
+                            <FlexLayout
+                                Direction="Column"
+                                AlignItems="Center"
+                                HeightRequest="110"
+                                WidthRequest="110"
+                                JustifyContent="SpaceAround">
+
+                                <Image Source="block.svg" HeightRequest="70" WidthRequest="70" />
+
+                                <Label TextColor="{DynamicResource White}" Text="Banir"/>
+
+                            </FlexLayout>
+
+
+                        </Border>
+
+
+                        <Border
+                            ClassId="qrCode"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 20,20,20,20"
+                            BackgroundColor="{DynamicResource Elements}"
+                            Grid.Column="2"
+                            Padding="10,10">
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="FlexLayoutTapped" />
+                            </Border.GestureRecognizers>
+
+                            <FlexLayout
+                                Direction="Column"
+                                AlignItems="Center"
+                                HeightRequest="110"
+                                WidthRequest="110"
+                                JustifyContent="SpaceAround">
+
+                                <Image Source="qr.svg" HeightRequest="70" WidthRequest="70" />
+                                <Label TextColor="{DynamicResource White}" Text="Qr Code"/>
+
+                            </FlexLayout>
+
+
+                        </Border>
+
+                    </Grid>
+
+
+
+                </VerticalStackLayout>
+
+
+                <VerticalStackLayout Margin="25,5" Spacing="15" VerticalOptions="FillAndExpand">
+
+                    <Label TextColor="{DynamicResource White}" Text="Desenvolvedores" FontSize="Large"/>
+
+                    <Border
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 10,10,10,10"
+                                        BackgroundColor="{DynamicResource Elements}"
+                                        Padding="0,20"
+                        >
+                        <StackLayout Spacing="10">
+
+                            <CarouselView
+                            x:Name="carouselView"
+                            ItemsSource="{Binding Developers}"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand"
+                            IndicatorView="indicatorView"
+                            Loop="True">
+
+                                <CarouselView.ItemTemplate>
+                                    <DataTemplate>
+
+                                        <FlexLayout Direction="Row">
+
+                                            <Frame WidthRequest="70" HeightRequest="70" BorderColor="{DynamicResource Black}" CornerRadius="35" Margin="20,0,0,0">
+                                                <Image Source="{Binding Photo}" Aspect="AspectFill" />
+                                            </Frame>
+
+                                            <StackLayout Orientation="Vertical" Margin="5,0,0,0" Spacing="5">
+                                                <Label Text="{Binding Name}" FontSize="Medium" TextColor="{DynamicResource White}"/>
+                                                <Label Text="{Binding Description}" FontSize="Small" TextColor="{DynamicResource White}"/>
+                                                <Label Text="⭐⭐⭐⭐⭐" FontSize="Small" TextColor="{DynamicResource White}"/>
+                                            </StackLayout>
+
+                                        </FlexLayout>
+
+
+                                    </DataTemplate>
+                                </CarouselView.ItemTemplate>
+                            </CarouselView>
+                            <IndicatorView 
+                            x:Name="indicatorView"
+                            IndicatorColor="{DynamicResource White}"
+                            SelectedIndicatorColor="{DynamicResource Black}"
+                            HorizontalOptions="Center" />
+
+
+                        </StackLayout>
+                    </Border>
+
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+
+
+            <VerticalStackLayout HorizontalOptions="FillAndExpand" HeightRequest="105">
+
+                <Border 
+                    StrokeThickness="0"
+                    WidthRequest="75"
+                    HeightRequest="75"
+                    StrokeShape="RoundRectangle 50,50,50,50">
+                    <Border.Shadow>
+                        <Shadow
+                            Brush="{DynamicResource Black}"
+                            Offset="10,10"
+                            Radius="40"
+                            Opacity="0.9"/>
+                    </Border.Shadow>
+
+                    <Button FontSize="40" Text="+" TextColor="{DynamicResource White}" BackgroundColor="{DynamicResource ButtonColor}"/>
+
+                </Border>
+
+            </VerticalStackLayout>
+
+        </FlexLayout>
+
+    </ScrollView>
+
+</ContentPage>

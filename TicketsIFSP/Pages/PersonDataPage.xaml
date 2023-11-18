@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TicketsIFSP.Converters"
+             x:Class="TicketsIFSP.Views.PersonDataPage"
+             Title="Visualizar convidado">
+
+    <ScrollView VerticalOptions="FillAndExpand" BackgroundColor="{DynamicResource Background}">
+
+        <VerticalStackLayout Spacing="20">
+
+            <Label Margin="0,10" TextColor="{DynamicResource White}" Text="Dados do convidado" FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold"/>
+
+            <Border
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 20,20,20,20"
+                BackgroundColor="{DynamicResource Primary}"
+                Grid.Column="0"
+                Margin="20,20"
+                Padding="10,10">
+                <Grid RowSpacing="10">
+                    <Grid.RowDefinitions >
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="125"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label TextColor="{DynamicResource White}" Text="Entrada:" FontSize="16" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand"  Grid.Column="0" Grid.Row="0"/>
+                    <Label TextColor="{DynamicResource White}" Text="{Binding Path=Guest.EntranceNumber, StringFormat='#{0}'}" FontSize="16" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="1"/>
+
+                    <Label TextColor="{DynamicResource White}" Text="Nome:" FontSize="16" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand"  Grid.Column="0" Grid.Row="1"/>
+                    <Label TextColor="{DynamicResource White}" Text="{Binding Guest.Name}" FontSize="14" VerticalOptions="CenterAndExpand" Grid.Row="1" Grid.Column="1"/>
+
+                    <Label TextColor="{DynamicResource White}" Text="E-mail:" FontSize="16" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand"  Grid.Column="0" Grid.Row="2"/>
+                    <Label TextColor="{DynamicResource White}" Text="{Binding Guest.Email}" FontSize="14" VerticalOptions="CenterAndExpand" Grid.Row="2" Grid.Column="1"/>
+
+                    <Label TextColor="{DynamicResource White}" Text="Idade:" FontSize="16" VerticalOptions="CenterAndExpand"  Grid.Column="0" Grid.Row="3"/>
+                    <Label TextColor="{DynamicResource White}" Text="{Binding Guest.Age}" FontSize="16" VerticalOptions="CenterAndExpand" Grid.Row="3" Grid.Column="1"/>
+
+                    <Label TextColor="{DynamicResource White}" Text="Documento:" FontSize="16" VerticalOptions="CenterAndExpand"  Grid.Column="0" Grid.Row="4"/>
+                    <Label TextColor="{DynamicResource White}" Text="{Binding Guest.Document}" FontSize="16" VerticalOptions="CenterAndExpand" Grid.Row="4" Grid.Column="1"/>
+
+                    <Label TextColor="{DynamicResource White}" Text="Nº de telefone:" FontSize="16" VerticalOptions="CenterAndExpand"  Grid.Column="0" Grid.Row="5"/>
+                    <Label TextColor="{DynamicResource White}" FontSize="16" VerticalOptions="CenterAndExpand" Grid.Row="5" Grid.Column="1">
+                        <Label.Text>
+                            <Binding Path="Guest.PhoneNumber">
+                                <Binding.Converter>
+                                    <local:StringToPhoneNumberConverter/>
+                                </Binding.Converter>
+                            </Binding>
+                        </Label.Text>
+                    </Label>
+
+                    <Label TextColor="{DynamicResource White}" Text="Perfil:" FontSize="16" VerticalOptions="CenterAndExpand"  Grid.Column="0" Grid.Row="6"/>
+                    <Label TextColor="{DynamicResource White}" FontSize="16" VerticalOptions="CenterAndExpand" Grid.Row="6" Grid.Column="1">
+                        <Label.Text>
+                            <Binding Path="Guest.Profile">
+                                <Binding.Converter>
+                                    <local:ProfileToStringConverter/>
+                                </Binding.Converter>
+                            </Binding>
+                        </Label.Text>
+                    </Label>
+
+                    <Label TextColor="{DynamicResource White}" Text="Banido:" FontSize="16" VerticalOptions="CenterAndExpand"  Grid.Column="0" Grid.Row="7"/>
+                    <Label TextColor="{DynamicResource White}" FontSize="16" VerticalOptions="CenterAndExpand" Grid.Row="7" Grid.Column="1">
+                        <Label.Text>
+                            <Binding Path="Guest.Banned">
+                                <Binding.Converter>
+                                    <local:BoolToObjectConverter x:TypeArguments="x:String"
+                                                         TrueObject="Sim"
+                                                         FalseObject="Não" />
+                                </Binding.Converter>
+                            </Binding>
+                        </Label.Text>
+                    </Label>
+
+                    <Label TextColor="{DynamicResource White}" Text="Entrou:" FontSize="16" VerticalOptions="CenterAndExpand"  Grid.Column="0" Grid.Row="8"/>
+                    <Label TextColor="{DynamicResource White}" FontSize="16" VerticalOptions="CenterAndExpand" Grid.Row="8" Grid.Column="1">
+                        <Label.Text>
+                            <Binding Path="Guest.EntranceCheckIn">
+                                <Binding.Converter>
+                                    <local:BoolToObjectConverter x:TypeArguments="x:String"
+                                                         TrueObject="Sim"
+                                                         FalseObject="Não" />
+                                </Binding.Converter>
+                            </Binding>
+                        </Label.Text>
+                    </Label>
+
+                </Grid>
+
+            </Border>
+
+            <HorizontalStackLayout Margin="0, 10" HorizontalOptions="CenterAndExpand" Spacing="20">
+                <Button Padding="16,10" Text="Registrar Entrada" BackgroundColor="#08731f" Clicked="Button_Clicked">
+                    <Button.IsEnabled>
+                        <Binding Path="Guest.EntranceCheckIn">
+                            <Binding.Converter>
+                                <local:BoolToOppositeBoolConverter/>
+                            </Binding.Converter>
+                        </Binding>
+                    </Button.IsEnabled>
+                </Button>
+
+                
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
