@@ -1,6 +1,6 @@
 # TicketsIFSP
 
-- Em desenvolvimento
+- Projeto finalizado
 
 ### Ícones
 
